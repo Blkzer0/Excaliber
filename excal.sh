@@ -1,5 +1,5 @@
 #!/bin/bash
-#Codename: Excaliber V1
+#Codename: Excaliber V 1.1
 ## Script (Automated Sqlmap ) is for quick recon. All parmeters are set for quick and accurate retrieval of database information. 
 
 function back(){
