@@ -6,5 +6,5 @@ me all information about each tested and vulnerable web server. I want to add op
 
 
 
-
+# Disclaimer:
 This script is for auditing web-servers at a faster rate and for educational purposes. I am not nor held responsible for the misuse of this code. Its a simple open source code.
