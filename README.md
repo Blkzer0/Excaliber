@@ -1,4 +1,4 @@
-# Excaliber
+# Excal
 This script was written to run tests via sqlmap a lot faster and accurate. 
 The script runs in bash and you can easily customize the flags. 
 Script works best with batch lists. 
